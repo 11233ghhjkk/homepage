@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>您的喜爱牙医 | 高端口腔诊所</title>
+    <style>
+        /* --- 全局样式重置 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* --- 颜色变量 (参考现代医疗风格: 洁净白 + 柔和蓝/金) --- */
+        :root {
+            --primary-color: #008080; /* 类似Teal的蓝绿色，显得专业且亲切 */
+            --secondary-color: #f9f9f9; /* 浅灰背景 */
+            --text-dark: #2c3e50;
+            --text-light: #666;
+            --accent-gold: #d4af37; /* 点缀色，提升高级感 */
+            --white: #ffffff;
+        }
+
+        /* --- 导航栏 --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--text-dark);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px; /* 圆角按钮，亲和力强 */
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #006666;
+        }
+
+        /* --- Hero Section (首屏) --- */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); /* 占位图: 干净的诊所 */
+            background-size: cover;
+            background-position: center;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        /* --- 理念板块 (Philosophy) --- */
+        .philosophy {
+            padding: 5rem 10%;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .philosophy h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .philosophy p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        /* --- 服务项目 (Services) --- */
+        .services {
+            background: var(--secondary-color);
+            padding: 5rem 10%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h3 {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* --- 团队/环境 (Split Section) --- */
+        .split-section {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .split-content {
+            flex: 1;
+            padding: 5rem;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .split-image {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover;
+            min-height: 400px;
+            min-width: 300px;
+        }
+
+        .split-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .split-content p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        /* --- 底部 Footer --- */
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 4rem 10% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-col p, .footer-col li {
+            color: #aaa;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            text-align: center;
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+            nav {
+                display: none; /* 简化处理，移动端隐藏菜单 */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .split-section {
+                flex-direction: column;
+            }
+            .split-content {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Lieblings<span>Zahnarzt</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">诊所环境</a></li>
+                <li><a href="#">治疗项目</a></li>
+                <li><a href="#">医生团队</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="cta-btn">在线预约</a>
+    </header>
+
+    <section class="hero">
+        <h1>您的专属口腔专家</h1>
+        <p>我们不仅关注牙齿的健康，更在乎每一位患者的感受。在舒适、现代的环境中，体验德国标准的口腔诊疗服务。</p>
+        <div class="btn-group">
+            <a href="#" class="cta-btn">预约初诊</a>
+            <a href="#" class="btn-outline">了解诊所</a>
+        </div>
+    </section>
+
+    <section class="philosophy">
+        <h2>“用心治疗每一颗牙齿”</h2>
+        <p>专业知识、同理心和热情：作为市中心的牙科诊所，我们每天都充满激情地致力于您的口腔健康。同时，我们深知每一位患者都有自己的故事。我们提供慢节奏的牙科医疗，给予您足够的时间和空间——就在这里，城市的中心。</p>
+        <a href="#" style="color: var(--primary-color); font-weight: 600;">了解我们的理念 &rarr;</a>
+    </section>
+
+    <section class="services">
+        <div class="section-header">
+            <h3>Our Services</h3>
+            <h2>全方位口腔诊疗服务</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <h4>美学修复</h4>
+                <p>贴面、全瓷冠及微笑设计，让您重拾自信笑容。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🛡️</div>
+                <h4>种植牙</h4>
+                <p>数字化微创种植技术，恢复咀嚼功能与美观。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🦷</div>
+                <h4>牙齿矫正</h4>
+                <p>隐形矫正与传统矫正，成人及儿童牙齿排列解决方案。</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">👶</div>
+                <h4>儿童齿科</h4>
+                <p>耐心温柔的儿童专科，从小呵护宝宝的牙齿健康。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="split-section">
+        <div class="split-image"></div>
+        <div class="split-content">
+            <h2>舒适的就诊环境</h2>
+            <p>告别传统诊所的冰冷感。我们的诊所设计融合了现代美学与居家般的舒适。在您等待或治疗期间，您可以享受轻松的音乐和温馨的氛围。我们配备了最先进的数字化诊疗设备，确保治疗的精准与安全。</p>
+            <p>不论是根管治疗还是常规检查，我们都力求让过程无痛、高效。</p>
+            <a href="#" class="cta-btn" style="align-self: flex-start;">查看诊所照片</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Lieblings Zahnarzt</h4>
+                <p>您值得信赖的家庭牙医。</p>
+                <p>我们致力于提供最高标准的口腔医疗服务。</p>
+            </div>
+            <div class="footer-col">
+                <h4>联系方式</h4>
+                <p>📍 地址：XX市 XX区 中心路88号</p>
+                <p>📞 电话：021-12345678</p>
+                <p>📧 邮箱：contact@lieblings.com</p>
+            </div>
+            <div class="footer-col">
+                <h4>营业时间</h4>
+                <p>周一 至 周五: 09:00 - 18:00</p>
+                <p>周六: 10:00 - 16:00</p>
+                <p>周日: 休息</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Lieblings-Zahnarzt Clone. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
